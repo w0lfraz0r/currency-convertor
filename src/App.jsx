@@ -1,10 +1,12 @@
 import "./App.css";
+import CurrencyConvertor from "./components/CurrencyConvertor";
 
 function App() {
   return (
     <>
-      <div className="text-5xl font-extrabold italic">Hi this is a currency convertor</div>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
+      <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center">
+        <CurrencyConvertor />
+      </div>
     </>
   );
 }
