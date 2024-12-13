@@ -10,6 +10,7 @@ const CurrencyConvertor = () => {
   const [toCurrency, setToCurrency] = useState("USD");
   const [favoirtes, setFavoirtes] = useState([]);
   const [convertedAmount, setConvertedAmount] = useState(null);
+  const [converting, setConverting] = useState(false);
 
   const fetchCurrencies = async () => {
     try {
@@ -17,7 +18,7 @@ const CurrencyConvertor = () => {
       const data = await res.json();
       setCurrencies(data);
     } catch (error) {
-      console.log(error);
+      console.log("Fetchng Currency Error", error);
     }
   };
 
@@ -39,11 +40,20 @@ const CurrencyConvertor = () => {
   };
 
   const convertCurrency = async (from, to, fromAmount) => {
-    const res = await fetch(
-      `https://api.frankfurter.dev/v1/latest?base=${from}&symbols=${to}`
-    );
-    const data = await res.json();
-    setConvertedAmount((fromAmount * data.rates[to]).toFixed(5));
+    if (!amount) return;
+    setConverting(true);
+    try {
+      const res = await fetch(
+        `https://api.frankfurter.dev/v1/latest?base=${from}&symbols=${to}`
+      );
+      const data = await res.json();
+      setConvertedAmount((fromAmount * data.rates[to]).toFixed(5));
+      setConverting(false);
+    } catch (error) {
+      console.log("Fetchng Conversion Error", error);
+    } finally {
+      setConverting(false);
+    }
   };
 
   return (
@@ -85,13 +95,16 @@ const CurrencyConvertor = () => {
         <input
           type="number"
           id="amount"
+          value={amount}
           className="w-full mt-1 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:border-indigo-500"
           onChange={(e) => setAmount(e.target.value)}
         />
       </div>
       <div className="flex justify-end mt-6">
         <button
-          className="px-5 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+          className={`px-5 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 ${
+            converting ? "opacity-50 cursor-not-allowed" : ""
+          }`}
           onClick={() => convertCurrency(fromCurrency, toCurrency, amount)}
         >
           Convert
