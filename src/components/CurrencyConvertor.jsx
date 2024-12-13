@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Dropdown from "./Dropdown";
 
 const CurrencyConvertor = () => {
   /* curl -s https://api.frankfurter.dev/v1/currencies */
@@ -16,6 +17,9 @@ convert("EUR", "USD", 10);
     */
   const [currencies, setCurrencies] = useState({});
   const [amount, setAmount] = useState(1);
+
+  const [fromCurrency, setFromCurrency] = useState("EUR");
+  const [toCurrency, setToCurrency] = useState("USD");
 
   const fetchCurrencies = async () => {
     try {
@@ -40,7 +44,19 @@ convert("EUR", "USD", 10);
       <h2 className="text-2xl mb-5 font-semibold text-gray-700">
         Currency Convertor
       </h2>
-      <div> DropDown</div>
+      <div>
+        <Dropdown
+          title="From"
+          currencies={currencies}
+          setCurrency={setFromCurrency}
+        />
+        {/* swap curremcy button */}
+        <Dropdown
+          title="To"
+          currencies={currencies}
+          setCurrency={setToCurrency}
+        />
+      </div>
       <div className="mt-4">
         <label
           htmlFor="amount"
