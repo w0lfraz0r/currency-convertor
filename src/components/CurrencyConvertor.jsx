@@ -98,7 +98,8 @@ const CurrencyConvertor = () => {
       </div>
 
       <div className="mt-4 text-lg font-medium text-right text-green-600">
-        Converted Amount: {convertedAmount ? convertedAmount + toCurrency : ""}
+        Converted Amount:{" "}
+        {convertedAmount ? convertedAmount + " " + toCurrency : ""}
       </div>
     </div>
   );
