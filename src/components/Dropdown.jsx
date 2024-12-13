@@ -1,4 +1,4 @@
-import React from "react";
+import { HiOutlineStar } from "react-icons/hi";
 
 const Dropdown = ({
   currencies,
@@ -32,6 +32,12 @@ const Dropdown = ({
             </option>
           ))}
         </select>
+        <button
+          onClick={() => handleFavoirtes(currency)}
+          className="absolute inset-y-0 right-0 flex items-center pr-5"
+        >
+          <HiOutlineStar className="" />
+        </button>
       </div>
     </div>
   );
