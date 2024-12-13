@@ -86,6 +86,7 @@ const CurrencyConvertor = () => {
           type="number"
           id="amount"
           className="w-full mt-1 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:border-indigo-500"
+          onChange={(e) => setAmount(e.target.value)}
         />
       </div>
       <div className="flex justify-end mt-6">
