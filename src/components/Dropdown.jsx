@@ -1,4 +1,4 @@
-import { HiOutlineStar } from "react-icons/hi";
+import { HiOutlineStar, HiStar } from "react-icons/hi";
 
 const Dropdown = ({
   currencies,
@@ -8,6 +8,7 @@ const Dropdown = ({
   handleFavoirtes,
   title = "",
 }) => {
+  const isFavorite = (current) => favoirtes.includes(currency);
   return (
     <div>
       <label
@@ -24,19 +25,26 @@ const Dropdown = ({
           value={currency}
           onChange={(e) => setCurrency(e.target.value)}
         >
-          {/* render favoirtes */}
+          {favoirtes.length > 0 &&
+            favoirtes.map((currency) => (
+              <option className="bg-gray-200" key={currency} value={currency}>
+                {currency}
+              </option>
+            ))}
           <hr />
-          {Object.keys(currencies).map((currency) => (
-            <option key={currency} value={currency}>
-              {currency}
-            </option>
-          ))}
+          {Object.keys(currencies)
+            .filter((c) => !favoirtes.includes(c))
+            .map((currency) => (
+              <option key={currency} value={currency}>
+                {currency}
+              </option>
+            ))}
         </select>
         <button
           onClick={() => handleFavoirtes(currency)}
           className="absolute inset-y-0 right-0 flex items-center pr-5"
         >
-          <HiOutlineStar className="" />
+          {isFavorite(currency) ? <HiStar /> : <HiOutlineStar />}
         </button>
       </div>
     </div>

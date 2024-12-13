@@ -8,7 +8,9 @@ const CurrencyConvertor = () => {
 
   const [fromCurrency, setFromCurrency] = useState("EUR");
   const [toCurrency, setToCurrency] = useState("USD");
-  const [favoirtes, setFavoirtes] = useState([]);
+  const [favoirtes, setFavoirtes] = useState(
+    JSON.parse(localStorage.getItem("favoirtes")) || ["INR", "EUR", "USD"]
+  );
   const [convertedAmount, setConvertedAmount] = useState(null);
   const [converting, setConverting] = useState(false);
 
@@ -68,6 +70,7 @@ const CurrencyConvertor = () => {
           currency={fromCurrency}
           setCurrency={setFromCurrency}
           handleFavoirtes={handleFavoirtes}
+          favoirtes={favoirtes}
         />
         <div className="flex justify-center -mb-5 sm:mb-0">
           <button
@@ -83,6 +86,7 @@ const CurrencyConvertor = () => {
           currency={toCurrency}
           setCurrency={setToCurrency}
           handleFavoirtes={handleFavoirtes}
+          favoirtes={favoirtes}
         />
       </div>
       <div className="mt-4">
